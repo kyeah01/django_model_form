@@ -1,4 +1,6 @@
 from django import forms
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Submit
 from .models import Board
 
 # class BoardForm(forms.Form):
@@ -28,3 +30,10 @@ class BoardForm(forms.ModelForm):
                 'cols' : 50,})}
         error_messages = {'title' : {'required' : '제발 입력해 주세요.'},
                             'content' : {'required' : '내용 입력하세요.'}}
+    
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_method = 'POST'
+        self.helper.add_input(Submit('submit', '작성!'))
