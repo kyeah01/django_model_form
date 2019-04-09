@@ -12,8 +12,13 @@
 <body>
     <div class="container">
         {% if user.is_authenticated %}
-            <h3>안녕, {{ user.username }}
-            <a href="{% url 'accounts:logout' %}">로그아웃</a></h3>
+            안녕, {{ user.username }}
+            <a href="{% url 'accounts:edit' %}">정보수정</a>
+            <a href="{% url 'accounts:logout' %}">로그아웃</a>
+            <form action="{% url 'accounts:delete' %}" method="POST" style="display:inline" onsubmit="return confirm('R U sure?');">
+                {% csrf_token %}
+                <input type="submit" value="탈퇴"/>
+            </form>
         {% else %}
             <h3>
                 <a href="{% url 'accounts:login' %}">로그인</a>
